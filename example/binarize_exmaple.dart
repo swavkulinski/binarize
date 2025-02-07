@@ -16,14 +16,14 @@ void main() {
       5:'ha ha'
     })
   );
-  print(e);
+  print("Input object: $e\n");
   final resultBuffer = e.serialized();
 
-  print(resultBuffer);
+  print("Binarized: $resultBuffer\n");
 
   final deser = ExampleClass.deserialize(SerdeBuffer(resultBuffer));
 
-  print(deser);
+  print("Deserialized object: $deser");
 }
 
 class ExampleClass {
@@ -50,7 +50,7 @@ class ExampleClass {
   static const _identifier = 100;
 
   factory ExampleClass.deserialize(SerdeBuffer buffer) {
-    final identifier = DeserializedByte(buffer).value;
+    final identifier = DeserializedInt(buffer).value;
     if (identifier != _identifier) {
       throw Exception('Wrong buffer: Expected $_identifier, was $identifier');
     }
@@ -86,7 +86,7 @@ class ExampleClass {
     )).serialized;
 
     return Uint8List.fromList([
-      _identifier,
+      ...SerializedInt(_identifier).serialized,
       ...nameBuffer,
       ...isSafeBuffer,
       ...capacityBuffer,
