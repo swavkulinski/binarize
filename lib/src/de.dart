@@ -5,6 +5,8 @@ import 'dart:typed_data';
 class SerdeBuffer {
   SerdeBuffer(this.buffer);
 
+  SerdeBuffer.fromString(String str) : buffer = Uint8List.fromList(utf8.encode(str));
+
   final Uint8List buffer;
 
   int pointer = 0;
@@ -17,6 +19,7 @@ class SerdeBuffer {
     pointer += length;
     return b;
   }
+
 }
 
 sealed class Deserializable<T> {
