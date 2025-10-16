@@ -20,6 +20,11 @@ class SerdeBuffer {
     return b;
   }
 
+
+  int classId () {
+    return Uint8List.sublistView(buffer,0,8).buffer.asByteData().getInt64(0);
+  }
+
 }
 
 sealed class Deserializable<T> {
