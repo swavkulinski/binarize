@@ -22,7 +22,11 @@ class SerdeBuffer {
 
 
   int classId () {
-    return Uint8List.sublistView(buffer,0,8).buffer.asByteData().getInt64(0);
+    // create Uint8List from first 8 bytes of buffer
+    // NOTE: taking buffer directly gets entire buffer
+    return Uint8List.fromList(
+        Uint8List.sublistView(buffer,0,8).toList())
+        .buffer.asByteData().getInt64(0);
   }
 
 }
